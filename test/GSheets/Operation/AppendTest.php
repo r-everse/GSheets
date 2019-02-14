@@ -5,11 +5,11 @@ namespace REverse\GSheets\Tests\Operation;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use REverse\GSheets\Client;
-use REverse\GSheets\Operation\Write;
+use REverse\GSheets\Operation\Append;
 use REverse\GSheets\SpreadSheets;
 use REverse\GSheets\Value;
 
-class WriteTest extends TestCase
+class AppendTest extends TestCase
 {
     const SPREADSHEET_TEST_ID = 'test';
 
@@ -30,14 +30,14 @@ class WriteTest extends TestCase
             Argument::exact(self::SPREADSHEET_TEST_ID),
             Argument::exact('Sheet1'),
             Argument::exact($googleSheetsValueRange),
-            Argument::exact(Write::DEFAULT_PARAMS)
+            Argument::exact(Append::DEFAULT_PARAMS)
         )->shouldBeCalledTimes(1);
 
         $googleServiceSheets->spreadsheets_values = $spreadSheetsValues->reveal();
         $client->getGoogleServiceSheets()->willReturn($googleServiceSheets->reveal());
         $spreadsheet->getClient()->willReturn($client->reveal());
 
-        $write = new Write($spreadsheet->reveal());
+        $write = new Append($spreadsheet->reveal());
         $write->execute($value, 'Sheet1');
     }
 }

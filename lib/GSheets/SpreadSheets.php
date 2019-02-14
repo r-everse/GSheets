@@ -2,8 +2,9 @@
 
 namespace REverse\GSheets;
 
+use REverse\GSheets\Operation\Append;
 use REverse\GSheets\Operation\Clear;
-use REverse\GSheets\Operation\Write;
+use REverse\GSheets\Operation\Update;
 
 class SpreadSheets
 {
@@ -41,11 +42,27 @@ class SpreadSheets
      *
      * @return self
      */
-    public function write(Value $value, $range, $optParams)
+    public function update(Value $value, $range, $optParams)
     {
         $this->range = $range;
 
-        (new Write($this))->execute($value, $this->range, $optParams);
+        (new Update($this))->execute($value, $this->range, $optParams);
+
+        return $this;
+    }
+
+    /**
+     * @param Value $value
+     * @param $range
+     * @param $optParams
+     *
+     * @return self
+     */
+    public function append(Value $value, $range, $optParams)
+    {
+        $this->range = $range;
+
+        (new Append($this))->execute($value, $this->range, $optParams);
 
         return $this;
     }
@@ -72,11 +89,11 @@ class SpreadSheets
      *
      * @return self
      */
-    public function writeRow(Value $value, $sheet, $row, $optParams = [])
+    public function updateRow(Value $value, $sheet, $row, $optParams = [])
     {
         $this->range = $this->declareRowRange($sheet, $row, $row);
 
-        $this->write($value, $this->range, $optParams);
+        $this->update($value, $this->range, $optParams);
 
         return $this;
     }

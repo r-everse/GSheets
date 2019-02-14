@@ -4,7 +4,7 @@ namespace REverse\GSheets\Operation;
 
 use REverse\GSheets\Value;
 
-class Write extends Operation
+class Append extends Operation
 {
     const DEFAULT_PARAMS = [
         'valueInputOption' => 'RAW'
