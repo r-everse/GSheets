@@ -4,6 +4,8 @@ namespace REverse\GSheets;
 
 use REverse\GSheets\Operation\Append;
 use REverse\GSheets\Operation\Clear;
+use REverse\GSheets\Operation\Delete;
+use REverse\GSheets\Operation\Get;
 use REverse\GSheets\Operation\Update;
 
 class SpreadSheets
@@ -111,6 +113,16 @@ class SpreadSheets
         $this->clear($this->range);
 
         return $this;
+    }
+
+    public function get($range)
+    {
+        return (new Get($this))->execute($range);
+    }
+
+    public function delete($dimension, $sheet, $startIndex, $endIndex)
+    {
+        return (new Delete($this))->execute($dimension, $sheet, $startIndex, $endIndex);
     }
 
     /**
